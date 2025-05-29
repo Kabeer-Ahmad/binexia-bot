@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -54,7 +56,7 @@ export default function AdminPanel() {
       return
     }
 
-    const { data: userData, error } = await supabase.from('users').select('role').eq('id', user.id).single()
+    const { data: userData } = await supabase.from('users').select('role').eq('id', user.id).single()
 
     if (userData?.role === 'admin') {
       setIsAdmin(true)
