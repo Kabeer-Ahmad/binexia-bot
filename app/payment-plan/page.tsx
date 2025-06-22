@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FiCopy } from 'react-icons/fi'
 
 const plans = [
-  { label: 'Monthly – $5', value: 'Monthly' },
-  { label: 'Quarterly – $13', value: 'Quarterly' },
-  { label: 'Yearly – $50', value: 'Yearly' },
+  { label: 'Monthly – $20', value: 'Monthly' },
+  { label: 'Quarterly – $50', value: 'Quarterly' },
+  { label: 'Yearly – $200', value: 'Yearly' },
 ]
 
 function PlanDropdown({ plan, setPlan }: { plan: string, setPlan: (v: string) => void }) {
