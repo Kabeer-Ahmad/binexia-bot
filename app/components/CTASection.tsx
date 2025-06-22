@@ -104,119 +104,161 @@ export default function CTASection() {
           </p>
         </motion.div>
 
-        {/* Pricing Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-16"
-        >
-          {/* Basic Plan */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-sm group-hover:blur-md transition-all duration-300"></div>
-            <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-2">STARTER</h3>
-                <div className="mb-6">
-                  <span className="text-gray-400 text-lg line-through">$199</span>
-                  <div className="text-4xl font-black text-white">$97</div>
-                  <span className="text-gray-400">one-time</span>
-                </div>
-                <ul className="text-left space-y-3 mb-8 text-gray-300">
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Basic AI Signals
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Email Support
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    1 Trading Platform
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Basic Market Analysis
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Trading Tutorials
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Weekly Reports
-                  </li>
-                </ul>
-                <a 
-                  href="/signup"
-                  className="w-full inline-block text-center bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300"
-                >
-                  START BASIC
-                </a>
-              </div>
-            </div>
-          </div>
+{/* Pricing Cards */}
+<motion.div
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.4, duration: 0.8 }}
+  className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16"
+>
 
-          {/* Pro Plan - Featured */}
-          <div className="relative group">
-            {/* Popular Badge */}
-            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
-              <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-2 px-6 rounded-full text-sm shadow-lg animate-pulse">
-                🔥 MOST POPULAR
-              </div>
-            </div>
-            
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-emerald-500/30 rounded-3xl blur-sm group-hover:blur-md transition-all duration-300"></div>
-            <div className="relative bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl border-2 border-green-400/50 rounded-3xl p-8">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2">PRO TRADER</h3>
-                <div className="mb-6">
-                  <span className="text-gray-400 text-lg line-through">$499</span>
-                  <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">$197</div>
-                  <span className="text-gray-400">one-time</span>
-                  <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">SAVE $302</div>
-                </div>
-                <ul className="text-left space-y-3 mb-8 text-gray-300">
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <strong>Premium AI Signals (95%+ accuracy)</strong>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    24/7 VIP Support
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    All Trading Platforms
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Auto-Trading Bot
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Private Telegram Group
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    Risk Management Tools
-                  </li>
-                </ul>
-                <motion.a
-                  href="/signup"
-                  whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34, 197, 94, 0.6)" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full inline-block text-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-2xl transition-all duration-300 relative overflow-hidden group"
-                >
-                  <span className="relative z-10">🚀 GET PRO ACCESS NOW</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.a>
-              </div>
-            </div>
+  {/* ───────────── STARTER ───────────── */}
+  <div className="relative group">
+    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-3xl blur-sm group-hover:blur-md transition-all duration-300" />
+    <div className="relative bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8">
+      <div className="text-center">
+        <h3 className="text-2xl font-bold text-white mb-2">STARTER</h3>
+
+        {/* price */}
+        <div className="mb-6">
+          <span className="text-gray-400 text-lg line-through">$99</span>
+          <div className="text-4xl font-black text-white">$59</div>
+          <span className="text-gray-400">one-time</span>
+        </div>
+
+        {/* features */}
+        <ul className="text-left space-y-3 mb-8 text-gray-300">
+          {[
+            'Basic AI Signals',
+            'Email Support',
+            'All Trading Platforms',
+            'Limited Pair Options',
+            '30-Day Money Back',
+            'Basic Risk Management'
+          ].map(f => (
+            <li key={f} className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href="/payment/basic"
+          className="w-full inline-block text-center bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300"
+        >
+          START BASIC
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {/* ───────────── PRO TRADER (Popular) ───────────── */}
+  <div className="relative group">
+    {/* badge */}
+    <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-20">
+      <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-2 px-6 rounded-full text-sm shadow-lg animate-pulse">
+        🔥 MOST POPULAR
+      </div>
+    </div>
+
+    <div className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-emerald-500/30 rounded-3xl blur-sm group-hover:blur-md transition-all duration-300" />
+    <div className="relative bg-gradient-to-br from-gray-800/90 to-gray-900/90 backdrop-blur-xl border-2 border-green-400/50 rounded-3xl p-8">
+      <div className="text-center">
+        <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500 mb-2">
+          PRO TRADER
+        </h3>
+
+        {/* price */}
+        <div className="mb-6">
+          <span className="text-gray-400 text-lg line-through">$199</span>
+          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">$99</div>
+          <span className="text-gray-400">one-time</span>
+          <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">
+            SAVE $100
           </div>
-        </motion.div>
+        </div>
+
+        {/* features */}
+        <ul className="text-left space-y-3 mb-8 text-gray-300">
+          {[
+            'Advanced AI Signals (95%+)',
+            'Priority 24/7 Support',
+            'All Trading Platforms',
+            'Unlimited Market Analysis',
+            '60-Day Money Back',
+            'Advanced Risk Management'
+          ].map(f => (
+            <li key={f} className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <motion.a
+          href="/payment/pro"
+          whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(34,197,94,0.6)' }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full inline-block text-center bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-2xl transition-all duration-300 relative overflow-hidden group"
+        >
+          <span className="relative z-10">🚀 GET PRO ACCESS</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </motion.a>
+      </div>
+    </div>
+  </div>
+
+  {/* ───────────── ELITE TRADER ───────────── */}
+  <div className="relative group">
+    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-pink-600/30 rounded-3xl blur-sm group-hover:blur-md transition-all duration-300" />
+    <div className="relative bg-gradient-to-br from-gray-800/85 to-gray-900/85 backdrop-blur-xl border border-pink-500/50 rounded-3xl p-8">
+      <div className="text-center">
+        <h3 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-2">
+          ELITE TRADER
+        </h3>
+
+        {/* price */}
+        <div className="mb-6">
+          <span className="text-gray-400 text-lg line-through">$499</span>
+          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">$299</div>
+          <span className="text-gray-400">one-time</span>
+          <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">
+            SAVE $200
+          </div>
+        </div>
+
+        {/* features */}
+        <ul className="text-left space-y-3 mb-8 text-gray-300">
+          {[
+            'Premium AI Signals',
+            'VIP Priority Support',
+            'All Platform Access',
+            'Real-time Analysis',
+            'Personal Manager',
+            '90-Day Money Back'
+          ].map(f => (
+            <li key={f} className="flex items-center gap-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        <motion.a
+          href="/payment/elite"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full inline-block text-center bg-gradient-to-r from-purple-500 to-pink-600 hover:brightness-110 text-white font-bold py-4 px-6 rounded-xl shadow-xl transition-all duration-300"
+        >
+          GO ELITE TODAY
+        </motion.a>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
 
         {/* Guarantee & Security */}
         <motion.div
