@@ -249,6 +249,10 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
+
+
+
+
       {/* 3D Trading Indicators */}
       <motion.div
         initial={{ opacity: 0, rotateX: -90 }}
@@ -355,113 +359,116 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Main Content */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="relative z-10"
-      >
-        {/* Premium Badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30 rounded-full px-4 py-2 mb-8 text-yellow-400 text-sm font-semibold"
-        >
-          <svg className="w-4 h-4 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-          </svg>
-          #1 AI Trading Bot of 2025
-        </motion.div>
+{/* Main Content */}
+<motion.div
+  initial={{ opacity: 0, y: 50 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="relative z-10 pt-10 sm:pt-24"
+>
+  {/* Mobile-only translucent overlay for better readability */}
+  <div className="block sm:hidden absolute inset-0 bg-black/30 backdrop-blur-[2px] rounded-lg z-[-1]" />
 
-        {/* Hero Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-black mb-6 leading-tight"
-        >
-          Turn <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">$100</span> into
-          <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600">$10,000+</span>
-          <br />
-          <span className="text-white">Every Month</span>
-        </motion.h1>
+  {/* Premium Badge */}
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ delay: 0.5, duration: 0.6 }}
+    className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-400/30 rounded-full px-4 py-2 mb-8 text-yellow-400 text-sm font-semibold"
+  >
+    <svg className="w-4 h-4 text-yellow-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+    #1 AI Trading Bot of 2025
+  </motion.div>
 
-        {/* Subtext */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-xl md:text-2xl max-w-3xl text-gray-300 mb-4 leading-relaxed"
-        >
-          The <strong className="text-green-400">World&apos;s Most Profitable</strong> AI Trading Bot
-        </motion.p>
+  {/* Hero Heading */}
+  <motion.h1
+    initial={{ opacity: 0, y: -30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 1, delay: 0.2 }}
+    className="text-4xl sm:text-6xl md:text-7xl font-black mb-6 leading-tight"
+  >
+    Turn <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">$100</span> into
+    <br />
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-red-500 to-pink-600">$10,000+</span>
+    <br />
+    <span className="text-white">Every Month</span>
+  </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-lg md:text-xl max-w-2xl text-gray-400 mb-12"
-        >
-          95% Win Rate • Automated Trading • Zero Experience Required
-        </motion.p>
+  {/* Subtext */}
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.6, duration: 0.8 }}
+    className="text-xl md:text-2xl max-w-3xl text-gray-300 mb-4 leading-relaxed"
+  >
+    The <strong className="text-green-400">World&apos;s Most Profitable</strong> AI Trading Bot
+  </motion.p>
 
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1, duration: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-        >
-          <motion.a
-            href="/signup"
-            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34, 197, 94, 0.4)" }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-2xl text-lg relative overflow-hidden group flex items-center gap-3"
-          >
-            <svg className="w-6 h-6 relative z-10" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-            </svg>
-            <span className="relative z-10">START EARNING NOW</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </motion.a>
-          
-          <motion.a
-            href="#demo"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="bg-transparent border-2 border-white/30 hover:border-white text-white font-bold py-4 px-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition text-lg flex items-center gap-3"
-          >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
-            </svg>
-            Watch Live Demo
-          </motion.a>
-        </motion.div>
+  <motion.p
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 0.8, duration: 0.8 }}
+    className="text-lg md:text-xl max-w-2xl text-gray-400 mb-12"
+  >
+    95% Win Rate • Automated Trading • Zero Experience Required
+  </motion.p>
 
-        {/* Trust Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-16 flex flex-wrap justify-center items-center gap-8 text-gray-400 text-sm"
-        >
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-            <span>{displayMetrics.totalUsers.toLocaleString()} Active Users</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-            <span>${displayMetrics.totalProfits.toFixed(1)}M+ Total Profits</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-            <span>{displayMetrics.winRate.toFixed(1)}% Win Rate</span>
-          </div>
-        </motion.div>
-      </motion.div>
+  {/* CTA Buttons */}
+  <motion.div
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ delay: 1, duration: 0.6 }}
+    className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+  >
+    <motion.a
+      href="/signup"
+      whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(34, 197, 94, 0.4)" }}
+      whileTap={{ scale: 0.98 }}
+      className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-8 rounded-xl shadow-2xl text-lg relative overflow-hidden group flex items-center gap-3"
+    >
+      <svg className="w-6 h-6 relative z-10" fill="currentColor" viewBox="0 0 20 20">
+        <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+      </svg>
+      <span className="relative z-10">START EARNING NOW</span>
+      <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </motion.a>
+
+    <motion.a
+      href="#demo"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.98 }}
+      className="bg-transparent border-2 border-white/30 hover:border-white text-white font-bold py-4 px-8 rounded-xl backdrop-blur-sm hover:bg-white/10 transition text-lg flex items-center gap-3"
+    >
+      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+        <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clipRule="evenodd" />
+      </svg>
+      Watch Live Demo
+    </motion.a>
+  </motion.div>
+
+  {/* Trust Indicators */}
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ delay: 1.2, duration: 0.8 }}
+    className="mt-16 flex flex-wrap justify-center items-center gap-8 text-gray-400 text-sm"
+  >
+    <div className="flex items-center gap-2">
+      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+      <span>{displayMetrics.totalUsers.toLocaleString()} Active Users</span>
+    </div>
+    <div className="flex items-center gap-2">
+      <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+      <span>${displayMetrics.totalProfits.toFixed(1)}M+ Total Profits</span>
+    </div>
+    <div className="flex items-center gap-2">
+      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+      <span>{displayMetrics.winRate.toFixed(1)}% Win Rate</span>
+    </div>
+  </motion.div>
+</motion.div>
 
       {/* Enhanced 3D Floating Glow Effects */}
       <motion.div 

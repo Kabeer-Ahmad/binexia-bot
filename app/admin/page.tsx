@@ -1,182 +1,197 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 'use client'
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabaseClient'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
-type Payment = {
+/* ── Types ─────────────────────────────────────────── */
+interface Payment {
   id: string
   user_id: string
   plan: string
-  screenshot_url: string
-  status: string
+  amount: number
+  method: string
+  screenshot_path: string
+  status: 'pending' | 'approved' | 'rejected'
   created_at: string
 }
-
-type User = {
+interface UserRow {
   id: string
-  email: string
-  role: string
+  email: string | null
+  role: string | null
   activation_date: string | null
 }
 
+/* ── Helpers ───────────────────────────────────────── */
+const bucket = 'paymentscreenshots'
+const getScreenshotUrl = (path: string) =>
+  supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl
+
+/* ── Component ─────────────────────────────────────── */
 export default function AdminPanel() {
-  const [payments, setPayments] = useState<(Payment & { user: User | undefined })[]>([])
-  const [loading, setLoading] = useState(true)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const router = useRouter()
+  const [rows, setRows]     = useState<(Payment & { user?: UserRow })[]>([])
+  const [loading, setLoad]  = useState(true)
+  const [isAdmin, setAdmin] = useState(false)
+  const [modalSrc, setSrc]  = useState<string | null>(null)
+  const router              = useRouter()
 
-  const fetchPayments = async () => {
-    const { data: paymentsData, error: paymentsError } = await supabase.from('payments').select('*').order('created_at', { ascending: false })
-    const { data: usersData, error: usersError } = await supabase.from('users').select('id, email, role, activation_date')
+  /* fetch + merge */
+  const fetchRows = async () => {
+    const { data: pay, error: e1 } = await supabase
+      .from('payment_requests')
+      .select('*')
+      .order('created_at', { ascending: false })
 
-    if (paymentsError || usersError || !paymentsData || !usersData) {
-      console.error('Error fetching payments or users', paymentsError || usersError)
-      return
-    }
+    const { data: users, error: e2 } = await supabase
+      .from('users')
+      .select('id,email,activation_date')
 
-    const merged = paymentsData.map((payment: Payment) => {
-      const user = usersData.find((u: User) => u.id === payment.user_id)
-      return { ...payment, user }
-    })
+    if (e1 || e2 || !pay || !users) { console.error(e1 || e2); return }
 
-    setPayments(merged)
+    setRows(pay.map(p => ({ ...p, user: users.find(u => u.id === p.user_id) })))
   }
 
-  const checkAdminAccess = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser()
+  /* auth + role */
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { router.replace('/signin'); return }
 
-    if (!user) {
-      router.push('/signin')
-      return
-    }
+      const { data } = await supabase
+        .from('users')
+        .select('role')
+        .eq('id', user.id)
+        .single()
 
-    const { data: userData } = await supabase.from('users').select('role').eq('id', user.id).single()
+      if (data?.role === 'admin') {
+        setAdmin(true)
+        await fetchRows()
+      } else {
+        router.replace('/dashboard')
+      }
+      setLoad(false)
+    })()
+  }, [router])
 
-    if (userData?.role === 'admin') {
-      setIsAdmin(true)
-      await fetchPayments()
-    } else {
-      router.push('/dashboard')
-    }
-
-    setLoading(false)
-  }
-
-  const updateStatus = async (id: string, status: string) => {
-    await supabase.from('payments').update({ status }).eq('id', id)
-
+  /* approve / reject */
+  const setStatus = async (id: string, status: 'approved' | 'rejected') => {
+    await supabase.from('payment_requests').update({ status }).eq('id', id)
     if (status === 'approved') {
-      const payment = payments.find(p => p.id === id)
-      if (payment) {
-        await supabase
-          .from('users')
-          .update({ activation_date: new Date().toISOString().split('T')[0], payment_status: 'yes' })
-          .eq('id', payment.user_id)
+      const p = rows.find(r => r.id === id)
+      if (p) {
+        await supabase.from('users').update({
+          payment_status: 'yes',
+          activation_date: new Date().toISOString().split('T')[0]
+        }).eq('id', p.user_id)
       }
     }
-
-    await fetchPayments()
+    fetchRows()
+  }
+  /* delete */
+  const delRow = async (p: Payment) => {
+    await supabase.from('payment_requests').delete().eq('id', p.id)
+    await supabase.from('users').update({
+      payment_status: 'no', activation_date: null
+    }).eq('id', p.user_id)
+    fetchRows()
   }
 
-  const handleDelete = async (payment: Payment) => {
-    // Delete payment entry
-    await supabase.from('payments').delete().eq('id', payment.id)
+  /* ── guards */
+  if (loading) return <p className="text-center py-20 text-white">Checking admin access…</p>
+  if (!isAdmin)  return null
 
-    // Reset user payment fields
-    await supabase
-      .from('users')
-      .update({ payment_status: 'no', activation_date: null })
-      .eq('id', payment.user_id)
-
-    await fetchPayments()
-  }
-
-  useEffect(() => {
-    checkAdminAccess()
-  }, [])
-
-  if (loading) return <p className="text-center py-20">Checking admin access...</p>
-  if (!isAdmin) return null
-
+  /* ── UI ──────────────────────────────────────────── */
   return (
-    <section className="min-h-screen bg-gray-100 p-8">
+    <section className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 p-6">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl font-bold text-indigo-800 mb-6 text-center"
+        className="text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-8 text-center"
       >
-        Admin Panel – Payment Submissions
+        Payment Requests – Admin Console
       </motion.h1>
 
-      <div className="overflow-x-auto">
-        <table className="w-full bg-white rounded shadow-lg text-gray-800">
-          <thead>
-            <tr className="bg-indigo-600 text-white text-left">
-              <th className="px-4 py-2">User Email</th>
-              <th className="px-4 py-2">Plan</th>
-              <th className="px-4 py-2">Screenshot</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Submitted</th>
-              <th className="px-4 py-2">Activation</th>
-              <th className="px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {payments.map((p) => (
-              <tr key={p.id} className="border-t text-sm">
-                <td className="px-4 py-2">{p.user?.email || 'N/A'}</td>
-                <td className="px-4 py-2">{p.plan}</td>
-                <td className="px-4 py-2">
-                  <a href={p.screenshot_url} target="_blank" className="text-blue-600 underline">
-                    View
-                  </a>
-                </td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-2 py-1 rounded ${
-                      p.status === 'approved'
-                        ? 'bg-green-100 text-green-700'
-                        : p.status === 'rejected'
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-yellow-100 text-yellow-700'
-                    }`}
-                  >
-                    {p.status}
-                  </span>
-                </td>
-                <td className="px-4 py-2">{new Date(p.created_at).toLocaleString()}</td>
-                <td className="px-4 py-2">{p.user?.activation_date || '—'}</td>
-                <td className="px-4 py-2 space-y-1 space-x-1">
-                  <button
-                    onClick={() => updateStatus(p.id, 'approved')}
-                    className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => updateStatus(p.id, 'rejected')}
-                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                  >
-                    Reject
-                  </button>
-                  <button
-                    onClick={() => handleDelete(p)}
-                    className="bg-gray-700 text-white px-3 py-1 rounded hover:bg-black"
-                  >
-                    Delete
-                  </button>
-                </td>
+      {rows.length === 0 ? (
+        <p className="text-center text-gray-400">No payment requests yet 🎉</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-gray-200 bg-black/30 backdrop-blur-md rounded-2xl shadow-xl">
+            <thead>
+              <tr className="bg-emerald-700 text-white">
+                {['Email','Plan','Amount','Method','Screenshot','Status','Submitted','Activation','Actions']
+                  .map(h => <th key={h} className="px-4 py-2 font-semibold">{h}</th>)}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {rows.map(r => (
+                <tr key={r.id} className="border-t border-gray-700">
+                  <td className="px-4 py-2">{r.user?.email ?? '—'}</td>
+                  <td className="px-4 py-2">{r.plan.toUpperCase()}</td>
+                  <td className="px-4 py-2">${r.amount}</td>
+                  <td className="px-4 py-2 capitalize">{r.method}</td>
+                  <td className="px-4 py-2">
+                    <button onClick={() => setSrc(getScreenshotUrl(r.screenshot_path))}
+                            className="text-indigo-400 underline hover:text-indigo-300">
+                      View
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
+                    <span className={`px-2 py-1 rounded font-medium
+                      ${r.status === 'approved' ? 'bg-green-700/30 text-green-300'
+                        : r.status === 'rejected' ? 'bg-red-700/30 text-red-300'
+                        : 'bg-yellow-600/30 text-yellow-300'}`}>
+                      {r.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2">{new Date(r.created_at).toLocaleString()}</td>
+                  <td className="px-4 py-2">{r.user?.activation_date ?? '—'}</td>
+                  <td className="px-4 py-2 space-x-1">
+                    <button
+                      onClick={() => setStatus(r.id,'approved')}
+                      className="bg-emerald-600 hover:bg-emerald-700 px-3 py-1 rounded text-white">
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => setStatus(r.id,'rejected')}
+                      className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white">
+                      Reject
+                    </button>
+                    <button
+                      onClick={() => delRow(r)}
+                      className="bg-gray-700 hover:bg-gray-900 px-3 py-1 rounded text-white">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* ── Screenshot Modal ───────────────────────── */}
+      <AnimatePresence>
+        {modalSrc && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/70 flex items-center justify-center z-50"
+            onClick={() => setSrc(null)}
+          >
+            <motion.img
+              src={modalSrc}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+              className="max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
