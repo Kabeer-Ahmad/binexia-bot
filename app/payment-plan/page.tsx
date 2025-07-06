@@ -10,9 +10,9 @@ interface User { id: string }
 
 /* ─── Plans meta so we can reuse price/name in Pending Card ─── */
 const PLAN_META = {
-  basic:  { name: 'STARTER',      price: 59  },
-  pro:    { name: 'PRO TRADER',   price: 99  },
-  elite:  { name: 'ELITE TRADER', price: 299 }
+  basic:  { name: 'STARTER',      price: 39  },
+  pro:    { name: 'PRO TRADER',   price: 79  },
+  elite:  { name: 'ELITE TRADER', price: 199 }
 } as const
 
 function SaleCountdown() {
@@ -131,15 +131,15 @@ export default function PaymentPlanPage() {
   /* ------------------------------------------------------------------- */
   const plans = [
     {
-      id: 'basic', name: 'STARTER', price: 59, originalPrice: 99, popular: false,
+      id: 'basic', name: 'STARTER', price: 39, originalPrice: 99, popular: false,
       features: ['Basic AI Signals','Email Support','All Trading Platforms','Limited Pair Options','30-Day Money Back','Basic Risk Management']
     },
     {
-      id: 'pro',   name: 'PRO TRADER', price: 99, originalPrice: 199, popular: true,
+      id: 'pro',   name: 'PRO TRADER', price: 79, originalPrice: 199, popular: true,
       features: ['Advanced AI Signals','Priority 24/7 Support','All Trading Platforms','Unlimited Market Analysis','60-Day Money Back','Advanced Risk Management']
     },
     {
-      id: 'elite', name: 'ELITE TRADER', price: 299, originalPrice: 499, popular: false,
+      id: 'elite', name: 'ELITE TRADER', price: 199, originalPrice: 499, popular: false,
       features: ['Premium AI Signals','VIP Priority Support','All Platform Access','Real-time Analysis','Personal Manager','90-Day Money Back']
     }
   ]

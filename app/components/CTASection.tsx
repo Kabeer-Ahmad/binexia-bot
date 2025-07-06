@@ -123,8 +123,11 @@ export default function CTASection() {
         {/* price */}
         <div className="mb-6">
           <span className="text-gray-400 text-lg line-through">$99</span>
-          <div className="text-4xl font-black text-white">$59</div>
+          <div className="text-4xl font-black text-white">$39</div>
           <span className="text-gray-400">one-time</span>
+          <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">
+            SAVE $60
+          </div>
         </div>
 
         {/* features */}
@@ -173,10 +176,10 @@ export default function CTASection() {
         {/* price */}
         <div className="mb-6">
           <span className="text-gray-400 text-lg line-through">$199</span>
-          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">$99</div>
+          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">$79</div>
           <span className="text-gray-400">one-time</span>
           <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">
-            SAVE $100
+            SAVE $120
           </div>
         </div>
 
@@ -221,8 +224,8 @@ export default function CTASection() {
 
         {/* price */}
         <div className="mb-6">
-          <span className="text-gray-400 text-lg line-through">$499</span>
-          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">$299</div>
+          <span className="text-gray-400 text-lg line-through">$399</span>
+          <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">$199</div>
           <span className="text-gray-400">one-time</span>
           <div className="bg-red-500 text-white text-xs font-bold py-1 px-3 rounded-full inline-block ml-2">
             SAVE $200

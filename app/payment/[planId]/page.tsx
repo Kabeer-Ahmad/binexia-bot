@@ -11,9 +11,9 @@ interface User { id: string; email?: string }
 
 /* Price + label per plan */
 const PLAN_META = {
-  basic: { label: 'STARTER', price: 59 },
-  pro:   { label: 'PRO TRADER', price: 99 },
-  elite: { label: 'ELITE TRADER', price: 299 }
+  basic: { label: 'STARTER', price: 39 },
+  pro:   { label: 'PRO TRADER', price: 79 },
+  elite: { label: 'ELITE TRADER', price: 199 }
 } as const
 
 export default function PaymentFormPage() {
